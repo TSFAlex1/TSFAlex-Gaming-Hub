@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TSFAlex Gaming Hub</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#95a0b8;--accent:#4f46e5;--white:#e6eef8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:linear-gradient(180deg,var(--bg),#061025);color:var(--white);min-height:100vh;overflow-y:auto}
+    .container{max-width:1100px;margin:40px auto;padding:32px}
+    header{display:flex;gap:24px;align-items:center}
+    .profile{width:140px;height:140px;border-radius:50%;overflow:hidden;flex:0 0 140px;border:4px solid rgba(255,255,255,0.06)}
+    .profile img{width:100%;height:100%;object-fit:cover;display:block}
+    .title{display:flex;flex-direction:column}
+    .title h1{margin:0;font-size:32px;letter-spacing:0.4px}
+    .title p{margin:8px 0 0;color:var(--muted);font-size:18px}
+    main{margin-top:40px}
+    h2{font-size:26px;margin-bottom:16px}
+    .games{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+    .card{background:var(--card);padding:16px;border-radius:16px;border:1px solid rgba(255,255,255,0.05);display:flex;flex-direction:column;align-items:center;text-align:center}
+    .thumb{width:100%;height:160px;border-radius:12px;overflow:hidden;background:#081226;margin-bottom:12px}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .meta h3{margin:0;font-size:20px}
+    .meta p{margin:6px 0 12px;color:var(--muted);font-size:15px}
+    .btn{background:var(--accent);color:white;padding:10px 16px;border-radius:8px;text-decoration:none;font-size:15px;border:none;cursor:pointer}
+    section.discord{margin-top:60px;text-align:center;background:var(--card);padding:40px;border-radius:16px;border:1px solid rgba(255,255,255,0.05)}
+    section.discord h2{font-size:28px;margin-bottom:12px}
+    section.discord p{color:var(--muted);font-size:16px;margin-bottom:20px}
+    section.discord a{display:inline-block;background:var(--accent);color:var(--white);padding:14px 24px;border-radius:10px;text-decoration:none;font-size:18px;font-weight:600}
+    footer{margin-top:80px;border-top:1px solid rgba(255,255,255,0.05);padding:24px 0;color:var(--muted);font-size:15px;text-align:center}
+    @media (max-width:600px){.profile{width:100px;height:100px}.title h1{font-size:26px}.title p{font-size:16px}.thumb{height:140px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="profile"><img src="assets/profile.jpg" alt="TSFAlex"></div>
+      <div class="title">
+        <h1>TSFAlex</h1>
+        <p>Gamer. Creator. Curating small retro and indie games.</p>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Games</h2>
+        <div class="games" id="games-list"></div>
+      </section>
+
+      <section class="discord">
+        <h2>Join My Discord</h2>
+        <p>Connect, chat, and play with the community on the TSFAlex Discord server.</p>
+        <a href="https://discord.gg/pfnmMRvPA7" target="_blank" rel="noopener">Join Discord</a>
+      </section>
+    </main>
+
+    <footer>
+      TSFAlex Gaming Hub • Built by TSFAlex
+    </footer>
+  </div>
+
+  <script>
+    const GAMES = [
+      { title: 'Example Game 1', desc: 'A short description. Click Play to open.', url: 'games/example1/index.html', thumb: 'assets/game1.png' },
+      { title: 'Demo Web Game', desc: 'Hosted demo or link to itch.io, Vercel, etc.', url: 'https://example.com', thumb: 'assets/game2.png' }
+    ];
+
+    const list = document.getElementById('games-list');
+
+    function makeCard(g){
+      const card=document.createElement('article');
+      card.className='card';
+      const thumb=document.createElement('div');
+      thumb.className='thumb';
+      const timg=document.createElement('img');
+      timg.src=g.thumb||'';
+      thumb.appendChild(timg);
+      const meta=document.createElement('div');
+      meta.className='meta';
+      const h3=document.createElement('h3');
+      h3.textContent=g.title;
+      const p=document.createElement('p');
+      p.textContent=g.desc;
+      meta.appendChild(h3);
+      meta.appendChild(p);
+      const play=document.createElement('a');
+      play.className='btn';
+      play.textContent='Play';
+      play.href=g.url;
+      play.target='_blank';
+      play.rel='noopener';
+      card.appendChild(thumb);
+      card.appendChild(meta);
+      card.appendChild(play);
+      return card;
+    }
+
+    function renderGames(){
+      list.innerHTML='';
+      GAMES.forEach(g=>list.appendChild(makeCard(g)));
+    }
+
+    renderGames();
+  </script>
+</body>
+</html>
